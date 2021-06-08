@@ -1,34 +1,21 @@
-package com.innovativeapps.com.messagingapp.model;
+package com.innovativeapps.com.messagingapp.pojo;
 
-import javax.persistence.*;
+import com.innovativeapps.com.messagingapp.model.Comment;
+import com.innovativeapps.com.messagingapp.model.Share;
+import com.innovativeapps.com.messagingapp.model.User;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "message")
-public class Message implements Serializable {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-    @Basic
-    @Column(name = "content", nullable = false, length = 2000)
-    private String content;
-    @Basic
-    @Temporal(TemporalType.DATE)
-    private Date createdDate;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-    @OneToMany()
-    private List<Comment> commentList;
-    @OneToMany
-    private List<Share> shareList;
+public class AppMessage implements Serializable {
 
-    public Message() {
-    }
+    private String content;
+    private Date createdDate;
+    private User user;
+    private List<Comment> commentList;
+    private List<Share> shareList;
 
     public String getContent() {
         return content;
@@ -73,18 +60,12 @@ public class Message implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || o.getClass() != getClass()) return false;
-        Message message = (Message) o;
-        return Objects.equals(Id, message.Id) &&
-                Objects.equals(content,message.content) &&
-                Objects.equals(createdDate, message.createdDate) &&
-                Objects.equals(commentList, message.commentList) &&
-                Objects.equals(shareList, message.shareList) &&
-                Objects.equals(user, message.user);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id,content, commentList, createdDate, shareList, user);
+        if (this == null || o.getClass() != getClass()) return false;
+        AppMessage appMessage = (AppMessage) o;
+        return Objects.equals(content, appMessage.content) &&
+                Objects.equals(createdDate, appMessage.createdDate) &&
+                Objects.equals(user, appMessage.user) &&
+                Objects.equals(commentList, appMessage.commentList) &&
+                Objects.equals(shareList, appMessage.shareList);
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="messagingPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+<!--        <jta-data-source>jdbc/messagingcms</jta-data-source>-->
+        <class>com.innovativeapps.com.messagingapp.model.User</class>
+        <class>com.innovativeapps.com.messagingapp.model.Like</class>
+        <class>com.innovativeapps.com.messagingapp.model.Share</class>
+        <class>com.innovativeapps.com.messagingapp.model.Message</class>
+        <class>com.innovativeapps.com.messagingapp.model.Comment</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/spring_demo_messenger?useSSL=false"/>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="eclipselink.jdbc.user" value="root"/>
+            <property name="eclipselink.jdbc.password" value="password"/>
+            <property name="target-server" value="Tomcat"/>
+        </properties>
+    </persistence-unit>
+</persistence>

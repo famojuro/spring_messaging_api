@@ -1,5 +1,6 @@
+
 plugins {
-	id 'org.springframework.boot' version '2.5.0'
+	id 'org.springframework.boot' version '2.5.1-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
@@ -12,6 +13,8 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
 
 }
 
@@ -20,12 +23,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.glassfish.jersey.core:jersey-server:2.33'
 
-	implementation 'mysql:mysql-connector-java:5.1.49'
+	implementation 'mysql:mysql-connector-java:8.0.23'
 	implementation 'org.eclipse.persistence:eclipselink:2.7.7'
 
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'io.swagger:swagger-jersey2-jaxrs:1.5.3'
+
 }
 
 def appContext = "${appContext}"

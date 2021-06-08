@@ -1,31 +1,18 @@
-package com.innovativeapps.com.messagingapp.model;
+package com.innovativeapps.com.messagingapp.pojo;
 
-import javax.persistence.*;
+import com.innovativeapps.com.messagingapp.model.Message;
+import com.innovativeapps.com.messagingapp.model.User;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "comment")
-public class Comment implements Serializable {
-    @Id
-    @Column(name = "id")
-    private int id;
-    @Basic
-    @Temporal(TemporalType.DATE)
-    private Date createdDate;
-    @Basic
-    @Column(name = "content")
-    private String content;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-    @ManyToOne
-    @JoinColumn(name = "message_id", referencedColumnName = "id")
-    private Message message;
+public class AppComment implements Serializable {
 
-    public Comment() {
-    }
+    private Date createdDate;
+    private User user;
+    private String content;
+    private Message message;
 
     public Date getCreatedDate() {
         return createdDate;
@@ -63,16 +50,15 @@ public class Comment implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || o.getClass() != getClass()) return false;
-        Comment comment = (Comment) o;
-        return Objects.equals(id, comment.id) &&
-                Objects.equals(content, comment.content) &&
-                Objects.equals(createdDate, comment.createdDate) &&
-                Objects.equals(user, comment.user) &&
-                Objects.equals(message, comment.message);
+        AppComment appComment = (AppComment) o;
+        return Objects.equals(createdDate, appComment.createdDate) &&
+                Objects.equals(message, appComment.message) &&
+                Objects.equals(content, appComment.content) &&
+                Objects.equals(user, appComment.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id,content, createdDate, user, message);
+        return Objects.hash(createdDate, message,content, user);
     }
 }

@@ -1,22 +1,43 @@
 package com.innovativeapps.com.messagingapp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class User {
+@Table(name = "user")
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @Basic
-    @Column(name = "user_name")
+    @Pattern(regexp ="[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            + "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            + "(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\.)+[A-Za-z0-9]"
+            + "(?:[A-Za-z0-9-]*[A-Za-z0-9])?",
+            message = "{invalid.email}")
+    @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
     @Basic
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     private String gender;
 
-    public User() {
+    @Basic
+    @Column(name = "join_date")
+    @Temporal(TemporalType.DATE)
+    private Date joinDate;
 
+    public User() {
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        this.Id = id;
     }
 
     public String getUserName() {
@@ -35,19 +56,28 @@ public class User {
         this.gender = gender;
     }
 
+    public Date getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == o || o.getClass() != getClass()) return false;
+        if (o == null || o.getClass() != getClass()) return false;
         User user = (User) o;
         return Objects.equals(Id, user.Id) &&
+                Objects.equals(joinDate, user.joinDate) &&
                 Objects.equals(userName, user.userName) &&
                 Objects.equals(gender, user.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, userName, gender);
+        return Objects.hash(Id, userName, gender, joinDate);
     }
 
 }

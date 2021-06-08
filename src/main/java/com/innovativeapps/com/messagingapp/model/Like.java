@@ -1,11 +1,13 @@
 package com.innovativeapps.com.messagingapp.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Like {
+@Table(name = "like")
+public class Like implements Serializable {
     @Id
     @Column(name = "id")
     private int id;
@@ -49,7 +51,7 @@ public class Like {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == o || o.getClass() != getClass()) return false;
+        if (o == null || o.getClass() != getClass()) return false;
         Like like = (Like) o;
         return Objects.equals(id, like.id) &&
                 Objects.equals(likedDate, like.likedDate) &&

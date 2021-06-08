@@ -1,11 +1,13 @@
 package com.innovativeapps.com.messagingapp.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Share {
+@Table(name = "share")
+public class Share implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +53,7 @@ public class Share {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == o || o.getClass() != getClass()) return false;
+        if (o == null || o.getClass() != getClass()) return false;
         Share share = (Share) o;
         return Objects.equals(Id, share.Id) &&
                 Objects.equals(sharedDate, share.sharedDate) &&
