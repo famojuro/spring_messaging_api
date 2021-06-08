@@ -46,6 +46,7 @@ public class DataProvider implements DataproviderLocal{
     public void delete(Object t) {
         em.remove(em.merge(t));
         em.flush();
+        em.getTransaction().commit();
     }
 
     @Override
