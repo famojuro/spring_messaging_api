@@ -28,7 +28,7 @@ public class MessageService {
     public Response createMessage(@QueryParam("user_id") String userId, @QueryParam("content") String content) {
         AppMessage appMessage = messageManager.createMessage(userId, content);
 
-        return Response.ok(appMessage).build();
+        return Response.status(Response.Status.CREATED).entity(appMessage).build();
     }
 
 }

@@ -52,7 +52,7 @@ public class UserService {
                                @QueryParam("gender") String gender) throws RuntimeException {
         AppUser appUser = userManager.updateUser(userId, userName, gender);
 
-        return Response.ok(appUser).build();
+        return Response.status(Response.Status.CREATED).entity(appUser).build();
     }
 
     @GET
