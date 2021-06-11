@@ -13,5 +13,7 @@ public interface UserDataManagerLocal {
 
     List<User> getAll();
 
-    User get(String userId);
+    User get(Integer userId);
+
+    User update(User user);
 }

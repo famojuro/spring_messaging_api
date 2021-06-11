@@ -9,8 +9,8 @@ import java.util.Objects;
 
 @Configurable
 public class AppUser implements Serializable {
-
-    private Long Id;
+    private static final long serialVersionUUID = 1L;
+    private Integer Id;
     private String userName;
     private String gender;
     private Date joinDate;
@@ -39,11 +39,11 @@ public class AppUser implements Serializable {
         this.joinDate = joinDate;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return Id;
     }
 
-    public void setId(Long Id) {
+    public void setId(Integer Id) {
         this.Id = Id;
     }
 

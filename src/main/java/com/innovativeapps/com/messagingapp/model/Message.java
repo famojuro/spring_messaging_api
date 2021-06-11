@@ -9,6 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "message")
 public class Message implements Serializable {
+    private static final long serialVersionUUID = 1L;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +19,7 @@ public class Message implements Serializable {
     private String content;
     @Basic
     @Temporal(TemporalType.DATE)
+    @Column(name = "created_date")
     private Date createdDate;
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")

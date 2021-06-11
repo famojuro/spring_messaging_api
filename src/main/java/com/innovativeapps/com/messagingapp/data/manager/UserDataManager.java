@@ -22,5 +22,8 @@ public class UserDataManager implements UserDataManagerLocal{
     public List<User> getAll() { return crud.findAll(User.class); }
 
     @Override
-    public User get(String userId) { return crud.find(userId, User.class); }
+    public User get(Integer userId) { return crud.find(userId, User.class); }
+
+    @Override
+    public User update(User user) { return crud.update(user); }
 }

@@ -9,9 +9,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
+    private static final long serialVersionUUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Integer Id;
     @Basic
     @Pattern(regexp ="[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
             + "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
@@ -32,11 +33,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.Id = id;
     }
 

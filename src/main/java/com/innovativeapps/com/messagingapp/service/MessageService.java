@@ -1,11 +1,14 @@
 package com.innovativeapps.com.messagingapp.service;
 
+import com.innovativeapps.com.messagingapp.manager.MessageManagerLocal;
+import com.innovativeapps.com.messagingapp.pojo.AppMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -13,12 +16,19 @@ import javax.ws.rs.core.Response;
 @Path("/messages")
 public class MessageService {
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response greetings() {
-        String response = "Hello World";
+    @Context
+    HttpServletRequest request;
 
-        return Response.ok(response).build();
+    @Autowired
+    private MessageManagerLocal messageManager;
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createMessage(@QueryParam("user_id") String userId, @QueryParam("content") String content) {
+        AppMessage appMessage = messageManager.createMessage(userId, content);
+
+        return Response.ok(appMessage).build();
     }
 
 }

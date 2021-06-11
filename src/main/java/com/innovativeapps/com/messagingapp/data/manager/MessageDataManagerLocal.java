@@ -1,4 +1,10 @@
 package com.innovativeapps.com.messagingapp.data.manager;
 
-public class MessageDataManagerLocal {
+import com.innovativeapps.com.messagingapp.model.Message;
+
+public interface MessageDataManagerLocal {
+
+    Message create(Message message);
+
+    Message get(Integer messageId);
 }

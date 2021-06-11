@@ -30,6 +30,7 @@ dependencies {
 
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'io.swagger:swagger-jersey2-jaxrs:1.5.3'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
 }
 

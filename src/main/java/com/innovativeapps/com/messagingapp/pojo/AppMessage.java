@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AppMessage implements Serializable {
-
+    private static final long serialVersionUUID = 1L;
     private String content;
     private Date createdDate;
     private User user;
