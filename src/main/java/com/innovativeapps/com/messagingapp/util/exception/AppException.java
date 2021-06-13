@@ -1,38 +1,56 @@
 package com.innovativeapps.com.messagingapp.util.exception;
 
-import org.joda.time.LocalDateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+public class AppException extends RuntimeException {
 
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.NotFoundException;
+    private static final long serialVersionUID = -8999932578270387947L;
+    Integer status;
+    int code;
+    String link;
+    String developerMessage;
+    String message;
 
-@RestControllerAdvice
-public class AppException extends RuntimeException{
-    private static final String TOKEN_ID = "tokenId";
-    private String msg;
-
-    private static final Logger log = LoggerFactory.getLogger(AppException.class);
-
-    @ExceptionHandler(value = NotFoundException.class)
-    public ResponseEntity<AppErrorResponse> handleGenericNotFoundException(NotFoundException e) {
-        AppErrorResponse errorResponse = new AppErrorResponse("NOT_FOUND_ERROR", e.getMessage());
-        errorResponse.setTimestamp(LocalDateTime.now());
-        errorResponse.setStatus((HttpStatus.NOT_FOUND.value()));
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    public AppException(int status, int code, String message,
+                        String developerMessage, String link) {
+        super(message);
+        this.message = message;
+        this.status = status;
+        this.code = code;
+        this.developerMessage = developerMessage;
+        this.link = link;
     }
 
-    @ExceptionHandler(value = BadRequestException.class)
-    public ResponseEntity<AppErrorResponse> handleUserAlreadyExistException(NotFoundException e) {
-        AppErrorResponse errorResponse = new AppErrorResponse("USER_ALREADY_EXIST_ERROR", e.getMessage());
-        errorResponse.setTimestamp(LocalDateTime.now());
-        errorResponse.setStatus((HttpStatus.NOT_FOUND.value()));
+    public AppException() { }
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    public int getStatus() {
+        return status;
     }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getDeveloperMessage() {
+        return developerMessage;
+    }
+
+    public void setDeveloperMessage(String developerMessage) {
+        this.developerMessage = developerMessage;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
 }

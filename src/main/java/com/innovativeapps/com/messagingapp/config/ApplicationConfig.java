@@ -4,6 +4,10 @@ import com.innovativeapps.com.messagingapp.pojo.AppUser;
 import com.innovativeapps.com.messagingapp.pojo.UserPayload;
 import com.innovativeapps.com.messagingapp.service.MessageService;
 import com.innovativeapps.com.messagingapp.service.UserService;
+import com.innovativeapps.com.messagingapp.util.exception.AppException;
+import com.innovativeapps.com.messagingapp.util.exception.ErrorMessage;
+import com.innovativeapps.com.messagingapp.util.exception.GeneralAppException;
+import com.innovativeapps.com.messagingapp.util.exception.GeneralAppExceptionMapper;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
@@ -30,6 +34,7 @@ public class ApplicationConfig extends ResourceConfig {
 
         register(MessageService.class);
         register(UserService.class);
+        register(GeneralAppExceptionMapper.class);
     }
 
     @Bean

@@ -4,7 +4,8 @@ import com.innovativeapps.com.messagingapp.data.manager.UserDataManagerLocal;
 import com.innovativeapps.com.messagingapp.model.User;
 import com.innovativeapps.com.messagingapp.pojo.AppUser;
 import com.innovativeapps.com.messagingapp.pojo.UserPayload;
-import com.innovativeapps.com.messagingapp.util.exception.AppValidationError;
+import com.innovativeapps.com.messagingapp.util.exception.AppException;
+import com.innovativeapps.com.messagingapp.util.exception.GeneralAppException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +22,13 @@ public class UserManager implements UserManagerLocal {
     private UserDataManagerLocal userDataManager;
 
     @Override
-    public AppUser createUser(String userName, String gender) throws RuntimeException {
+    public AppUser createUser(String userName, String gender) throws AppException {
         User user = new User();
         List<User> userList = userDataManager.getAll();
         for (User user1 : userList) {
             if (user1.getUserName().equals(userName)) {
-                throw new AppValidationError("User with username " + userName + " already exists");
+                throw new GeneralAppException(404, 404, "User with username " + userName + " already exist",
+                        "User with id already exist", "");
             }
         }
         user.setUserName(userName);
@@ -43,10 +45,11 @@ public class UserManager implements UserManagerLocal {
         return appUser;
     }
 
-    public AppUser updateUser(String userId, String userName, String gender) throws RuntimeException {
+    public AppUser updateUser(String userId, String userName, String gender)
+            throws GeneralAppException{
         User user = userDataManager.get(Integer.parseInt(userId));
         if (user == null) {
-            throw new AppValidationError("user with id " + userId + " not found");
+           throw new GeneralAppException(404, 404, "User with id " + userId + " not found", "user not found", "");
         }
         user.setUserName(userName);
         user.setGender(gender);
@@ -67,8 +70,11 @@ public class UserManager implements UserManagerLocal {
     }
 
     @Override
-    public AppUser getUser(String userId) {
+    public AppUser getUser(String userId) throws AppException {
         User user = userDataManager.get(Integer.parseInt(userId));
+        if (user == null) {
+            throw new GeneralAppException(404, 404, "user with id " + userId + " not found", "user not found", "");
+        }
 
         return getAppUser(user);
     }
