@@ -45,7 +45,7 @@ public class UserService {
         return Response.ok(appUser).build();
     }
 
-    @POST
+    @PUT
     @Path("/{user_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

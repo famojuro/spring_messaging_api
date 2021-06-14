@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class MessageDataManager implements MessageDataManagerLocal {
 
@@ -17,4 +19,7 @@ public class MessageDataManager implements MessageDataManagerLocal {
 
     @Override
     public Message get(Integer messageId) { return crud.find(messageId, Message.class); }
+
+    @Override
+    public List<Message> getAll() { return crud.findAll(Message.class); }
 }

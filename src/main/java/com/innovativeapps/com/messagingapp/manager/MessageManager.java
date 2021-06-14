@@ -5,6 +5,7 @@ import com.innovativeapps.com.messagingapp.data.manager.UserDataManagerLocal;
 import com.innovativeapps.com.messagingapp.model.Message;
 import com.innovativeapps.com.messagingapp.model.User;
 import com.innovativeapps.com.messagingapp.pojo.AppMessage;
+import com.innovativeapps.com.messagingapp.pojo.MessagePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,6 +45,17 @@ public class MessageManager implements  MessageManagerLocal {
         return getAppMessage(message);
     }
 
+    @Override
+    public MessagePayload getMessages() {
+        List<Message> messages = messageDataManager.getAll();
+
+        List<AppMessage> appMessages = getAppMessages(messages);
+        MessagePayload messagePayload = new MessagePayload();
+        messagePayload.setMessages(appMessages);
+
+        return messagePayload;
+    }
+
     private List<AppMessage> getAppMessages(List<Message> messages) {
         List<AppMessage> appMessages = new ArrayList<>();
         for (Message message : messages) {
@@ -62,6 +74,7 @@ public class MessageManager implements  MessageManagerLocal {
             return null;
         }
         AppMessage appMessage = new AppMessage();
+        appMessage.setId((message.getId()));
         appMessage.setContent(message.getContent());
         appMessage.setUser(message.getUser());
         appMessage.setCommentList(message.getCommentList());

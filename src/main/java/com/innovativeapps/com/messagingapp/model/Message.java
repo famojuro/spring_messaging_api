@@ -1,7 +1,10 @@
 package com.innovativeapps.com.messagingapp.model;
 
+import com.innovativeapps.com.messagingapp.util.hateoas.Link;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +16,7 @@ public class Message implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Integer Id;
     @Basic
     @Column(name = "content", nullable = false, length = 2000)
     private String content;
@@ -70,6 +73,10 @@ public class Message implements Serializable {
 
     public void setShareList(List<Share> shareList) {
         this.shareList = shareList;
+    }
+
+    public Integer getId() {
+        return Id;
     }
 
     @Override
